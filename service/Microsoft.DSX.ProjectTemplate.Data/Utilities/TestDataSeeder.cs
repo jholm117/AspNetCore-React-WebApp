@@ -1,8 +1,6 @@
-﻿using Microsoft.DSX.ProjectTemplate.Data;
-using Microsoft.DSX.ProjectTemplate.Data.Utilities;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
-namespace Microsoft.DSX.ProjectTemplate.Test.Infrastructure
+namespace Microsoft.DSX.ProjectTemplate.Data.Utilities
 {
     public class TestDataSeeder
     {

@@ -10,16 +10,18 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Utilities
     {
         public static Group GetRandomGroup(ProjectTemplateDbContext database)
         {
-            return database.Groups.OrderBy(_ => Guid.NewGuid()).First();
+            return database.Groups.OrderBy(x => Guid.NewGuid()).First();
         }
 
         public static Group CreateValidNewGroup(ProjectTemplateDbContext database, string name = "")
         {
-            return new Group()
+            var group = new Group()
             {
                 Name = name.Length == 0 ? RandomFactory.GetAlphanumericString(8) : name,
                 IsActive = RandomFactory.GetBoolean()
             };
+
+            return group;
         }
 
         public static GroupDto CreateValidNewGroupDto(ProjectTemplateDbContext database, IMapper mapper, string name = "")
@@ -31,11 +33,13 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Utilities
 
         public static Project CreateValidNewProject(ProjectTemplateDbContext database, Group group = null)
         {
-            return new Project()
+            var project = new Project()
             {
                 Name = RandomFactory.GetCodeName(),
                 Group = group ?? GetRandomGroup(database)
             };
+
+            return project;
         }
     }
 }

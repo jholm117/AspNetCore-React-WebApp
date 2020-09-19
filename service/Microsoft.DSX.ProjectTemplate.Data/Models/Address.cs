@@ -7,21 +7,21 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Models
     public class Address
     {
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string AddressLine1 { get; set; }
+        public string LocationAddressLine1 { get; set; }
 
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string AddressLine2 { get; set; }
+        public string LocationAddressLine2 { get; set; }
 
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string City { get; set; }
+        public string LocationCity { get; set; }
 
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string StateProvince { get; set; }
+        public string LocationStateProvince { get; set; }
 
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string ZipCode { get; set; }
+        public string LocationZipCode { get; set; }
 
         [MaxLength(Constants.MaximumLengths.StringColumn)]
-        public string Country { get; set; }
+        public string LocationCountry { get; set; }
     }
 }

@@ -5,23 +5,23 @@ namespace Microsoft.DSX.ProjectTemplate.Test.Infrastructure
 {
     internal class FakeEmailService : IEmailService
     {
-        private int _sentCount;
+        private int m_sentCount;
 
         public FakeEmailService()
         {
-            _sentCount = 0;
+            m_sentCount = 0;
         }
 
         public Task SendEmailAsync(string from, string to, string subject, string body)
         {
-            _sentCount++;
+            m_sentCount++;
 
             return Task.CompletedTask;
         }
 
         public int GetSentCount()
         {
-            return _sentCount;
+            return m_sentCount;
         }
     }
 }
