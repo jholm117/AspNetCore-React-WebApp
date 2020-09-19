@@ -44,7 +44,8 @@ namespace Microsoft.DSX.ProjectTemplate.API.Controllers
         [HttpPost]
         public async Task<ActionResult<GroupDto>> CreateGroup([FromBody] GroupDto dto)
         {
-            return Ok(await Mediator.Send(new CreateGroupCommand() { Group = dto }));
+            var group = await Mediator.Send(new CreateGroupCommand() { Group = dto });
+            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
         }
 
         /// <summary>

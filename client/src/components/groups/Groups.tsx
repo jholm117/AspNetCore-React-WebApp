@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   List,
   IColumn,
   Spinner,
   DetailsList,
   DetailsListLayoutMode,
-  SpinnerSize
-} from '@fluentui/react';
-import { IGroupDto, ApiClient } from '../../generated/backend';
+  SpinnerSize,
+  Modal,
+  mergeStyleSets,
+} from "@fluentui/react";
+import { IGroupDto, ApiClient } from "../../generated/backend";
+import AddGroupForm from "./addGroupForm/AddGroupForm";
 
 const Groups: React.FC = () => {
   const [data, setData] = useState({
     groups: [] as IGroupDto[],
-    isFetching: false
+    isFetching: false,
   });
   const groupKeys: IGroupDto = {
     id: null,
-    name: '',
+    name: "",
     isActive: false,
     createdDate: null,
-    updatedDate: null
+    updatedDate: null,
   };
   const columns = Object.keys(groupKeys).map(
     (key): IColumn => {
       return {
         key,
-        name: key.replace(/([A-Z])/g, ' $1').replace(/^./, (str: string) => {
+        name: key.replace(/([A-Z])/g, " $1").replace(/^./, (str: string) => {
           return str.toUpperCase();
         }),
         fieldName: key,
         minWidth: 100,
         maxWidth: 200,
-        isResizable: true
+        isResizable: true,
       };
     }
   );
@@ -52,16 +55,39 @@ const Groups: React.FC = () => {
     fetchData();
   }, []);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const hideModal = () => setIsModalOpen(false);
+
+  const onSuccess = (group: IGroupDto) => {
+    setData({
+      groups: [...data.groups, group],
+      isFetching: false,
+    });
+    hideModal();
+  };
+
   return (
     <>
       <h2>Groups</h2>
+      <button onClick={showModal}>Add Group</button>
+      <Modal
+        isOpen={isModalOpen}
+        onDismiss={hideModal}
+        containerClassName={contentStyles.container}
+      >
+        <AddGroupForm onSuccess={onSuccess} />
+      </Modal>
       <DetailsList
-        items={data.groups.map(group => {
+        items={data.groups.map((group) => {
           return {
             ...group,
             createdDate: group.createdDate.toLocaleString(),
             updatedDate: group.updatedDate.toLocaleString(),
-            isActive: group.isActive.toString()
+            isActive: group.isActive.toString(),
           };
         })}
         columns={columns}
@@ -71,5 +97,17 @@ const Groups: React.FC = () => {
     </>
   );
 };
+
+const contentStyles = mergeStyleSets({
+  container: {
+    display: "flex",
+    flexFlow: "column nowrap",
+    alignItems: "stretch",
+    paddingLeft: "24px",
+    paddingRight: "24px",
+    paddingBottom: "12px",
+    minWidth: "330px",
+  },
+});
 
 export default Groups;

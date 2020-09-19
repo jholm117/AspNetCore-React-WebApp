@@ -91,7 +91,7 @@ namespace Microsoft.DSX.ProjectTemplate.Test.Tests.Integration.Group
             var response = await Client.PostAsJsonAsync("/api/groups", dto);
 
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
 
             GetSentCount().Should().Be(1);
         }
